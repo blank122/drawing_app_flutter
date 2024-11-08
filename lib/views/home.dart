@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
     BuildContext context,
     Map<String, dynamic> answers,
     Function setState,
-    // String uniqueKey,
+    String uniqueKey,
     Map<String, File> drawingFiles,
   ) async {
     try {
@@ -67,9 +67,9 @@ class _HomeState extends State<Home> {
 
       final answerFile = File(answerImagePath);
       await answerFile.writeAsBytes(answerImage!.buffer.asUint8List());
-      drawingFiles['${generateUniqueId}_drawing'] = answerFile;
+      drawingFiles['${uniqueKey}_drawing'] = answerFile;
       // Store the File object in the answers map
-      answers['${generateUniqueId}_drawing'] = answerFileName;
+      answers['${uniqueKey}_drawing'] = answerFileName;
 
       if (context.mounted) {
         ReusableSnackbar.showSuccessSnackbar(
@@ -105,7 +105,7 @@ class _HomeState extends State<Home> {
                     IconButton(
                       onPressed: () {
                         saveAnswer(_drawingController, context, _answers,
-                            setState, _drawingAnswer);
+                            setState, '1', _drawingAnswer);
                       },
                       icon: const Icon(
                         Icons.save_alt,
@@ -122,7 +122,9 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    print('_answers value: $_answers');
+                  },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
