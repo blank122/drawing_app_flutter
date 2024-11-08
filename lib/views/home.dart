@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:file_upload/controller/upload_controller.dart';
 import 'package:file_upload/widgets/custom_colors.dart';
 import 'package:file_upload/widgets/reusable_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class _HomeState extends State<Home> {
   late DrawingController _drawingController = DrawingController();
   final Map<String, File> _drawingAnswer = {};
   final Map<String, dynamic> _answers = {};
+  final UploadController uploadController = UploadController();
+
   String generateUniqueId() {
     const length = 4;
     const characters =
@@ -122,7 +125,19 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    if (_drawingAnswer.containsKey('1_drawing')) {
+                      await uploadController.sendDrawingToServer(
+                        _drawingAnswer['1_drawing']!,
+                        _answers,
+                      );
+                    } else {
+                      // Show error if there is no saved drawing
+                      ReusableSnackbar.showErrorSnackbar(
+                        context: context,
+                        description: "Please save the drawing first.",
+                      );
+                    }
                     print('_answers value: $_answers');
                   },
                   child: const Row(
