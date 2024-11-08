@@ -5,6 +5,7 @@ import 'package:file_upload/widgets/custom_colors.dart';
 import 'package:file_upload/widgets/reusable_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
+import 'package:sizer/sizer.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -84,32 +85,61 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Text('Home'),
-            SizedBox(
-              width: double.infinity,
-              height: 350,
-              child: buildDrawing(_drawingController),
-            ),
-            Row(
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16.sp),
+            child: Column(
               children: [
-                const Text('Save as answer'),
-                IconButton(
-                  onPressed: () {
-                    saveAnswer(_drawingController, context, _answers, setState,
-                        _drawingAnswer);
-                  },
-                  icon: const Icon(
-                    Icons.save_alt,
-                    color: CustomColors.navyBlue,
+                const Text('Home'),
+                SizedBox(
+                  width: double.infinity,
+                  height: 350,
+                  child: buildDrawing(_drawingController),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text('Save as answer'),
+                    IconButton(
+                      onPressed: () {
+                        saveAnswer(_drawingController, context, _answers,
+                            setState, _drawingAnswer);
+                      },
+                      icon: const Icon(
+                        Icons.save_alt,
+                        color: CustomColors.navyBlue,
+                      ),
+                    ),
+                  ],
+                ),
+                const Text('audio ni sya diri'),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
