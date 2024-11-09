@@ -30,7 +30,6 @@ class ThemeService {
     bottomNavBarColor =
         Color(prefs.getInt('bottomNavBarColor') ?? Colors.white.value);
     drawerColor = Color(prefs.getInt('drawerColor') ?? Colors.white.value);
-    appBodyColor = Color(prefs.getInt('appBodyColor') ?? Colors.white.value);
   }
 
   Future<void> savePreferences() async {
@@ -39,7 +38,6 @@ class ThemeService {
     prefs.setInt('appBarColor', appBarColor.value);
     prefs.setInt('bottomNavBarColor', bottomNavBarColor.value);
     prefs.setInt('drawerColor', drawerColor.value);
-    prefs.setInt('appBodyColor', appBodyColor.value);
   }
 
   void setThemeMode(ThemeMode mode) {

@@ -2,10 +2,37 @@ import 'package:file_upload/services/color_picker.dart';
 import 'package:file_upload/services/theme_service.dart';
 import 'package:flutter/material.dart';
 
-class ThemeSettings extends StatelessWidget {
+class ThemeSettings extends StatefulWidget {
+  const ThemeSettings({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _ThemeSettingsState createState() => _ThemeSettingsState();
+}
+
+class _ThemeSettingsState extends State<ThemeSettings> {
   final themeService = ThemeService();
 
-  ThemeSettings({super.key});
+  late Color selectedAppBarColor;
+  late Color selectedBottomNavBarColor;
+  late Color selectedDrawerColor;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with current theme colors
+    selectedAppBarColor = themeService.appBarColor;
+    selectedBottomNavBarColor = themeService.bottomNavBarColor;
+    selectedDrawerColor = themeService.drawerColor;
+  }
+
+  void saveThemeSettings() {
+    themeService.setAppBarColor(selectedAppBarColor);
+    themeService.setBottomNavBarColor(selectedBottomNavBarColor);
+    themeService.setDrawerColor(selectedDrawerColor);
+    themeService.savePreferences(); // Save all changes at once
+    Navigator.pop(context); // Navigate back to HomeScreen
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,44 +40,45 @@ class ThemeSettings extends StatelessWidget {
       appBar: AppBar(title: Text('Theme Settings')),
       body: Column(
         children: [
-          // SwitchListTile(
-          //   title: Text("Dark Mode"),
-          //   value: themeService.themeMode == ThemeMode.dark,
-          //   onChanged: (isDark) {
-          //     themeService
-          //         .setThemeMode(isDark ? ThemeMode.dark : ThemeMode.light);
-          //     (context as Element).reassemble(); // Refresh the widget
-          //   },
-          // ),
           ListTile(
             title: const Text("App Bar Color"),
             trailing: ColorThemePicker(
-              currentColor: themeService.appBarColor,
+              currentColor: selectedAppBarColor,
               onColorSelected: (color) {
-                themeService.setAppBarColor(color);
-                // ignore: invalid_use_of_protected_member
-                (context as Element).reassemble(); // Refresh the widget
+                setState(() {
+                  selectedAppBarColor = color;
+                });
               },
             ),
           ),
           ListTile(
             title: const Text("Bottom Navigation Bar Color"),
             trailing: ColorThemePicker(
-              currentColor: themeService.bottomNavBarColor,
+              currentColor: selectedBottomNavBarColor,
               onColorSelected: (color) {
-                themeService.setBottomNavBarColor(color);
-                (context as Element).reassemble(); // Refresh the widget
+                setState(() {
+                  selectedBottomNavBarColor = color;
+                });
               },
             ),
           ),
           ListTile(
             title: const Text("Drawer Color"),
             trailing: ColorThemePicker(
-              currentColor: themeService.drawerColor,
+              currentColor: selectedDrawerColor,
               onColorSelected: (color) {
-                themeService.setDrawerColor(color);
-                (context as Element).reassemble(); // Refresh the widget
+                setState(() {
+                  selectedDrawerColor = color;
+                });
               },
+            ),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: saveThemeSettings,
+              child: const Text("Save"),
             ),
           ),
         ],
