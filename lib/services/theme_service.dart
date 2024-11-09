@@ -28,6 +28,7 @@ class ThemeService {
     prefs.setInt('appBarColor', appBarColor.value);
     prefs.setInt('bottomNavBarColor', bottomNavBarColor.value);
     prefs.setInt('drawerColor', drawerColor.value);
+    prefs.setInt('appBodyColor', appBodyColor.value);
   }
 
   void setThemeMode(ThemeMode mode) {

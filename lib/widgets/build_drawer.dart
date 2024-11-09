@@ -1,3 +1,4 @@
+import 'package:file_upload/views/theme_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -54,10 +55,12 @@ class _BuildDrawerState extends State<BuildDrawer> {
                         ),
                         trailing: const Icon(Icons.settings),
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => page),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ThemeSettings(),
+                            ),
+                          );
                         },
                       ),
                     ],
