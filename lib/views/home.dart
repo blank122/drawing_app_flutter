@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:file_upload/controller/upload_controller.dart';
+import 'package:file_upload/widgets/build_drawer.dart';
 import 'package:file_upload/widgets/custom_colors.dart';
 import 'package:file_upload/widgets/reusable_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +91,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(),
+        drawer: const BuildDrawer(),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(16.sp),
