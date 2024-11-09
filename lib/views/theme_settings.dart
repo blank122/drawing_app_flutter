@@ -3,7 +3,9 @@ import 'package:file_upload/services/theme_service.dart';
 import 'package:flutter/material.dart';
 
 class ThemeSettings extends StatefulWidget {
-  const ThemeSettings({super.key});
+  final VoidCallback onThemeUpdated;
+
+  const ThemeSettings({super.key, required this.onThemeUpdated});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -47,6 +49,7 @@ class _ThemeSettingsState extends State<ThemeSettings> {
               onColorSelected: (color) {
                 setState(() {
                   selectedAppBarColor = color;
+                  themeService.setAppBarColor(color); // Save change immediately
                 });
               },
             ),
@@ -58,6 +61,8 @@ class _ThemeSettingsState extends State<ThemeSettings> {
               onColorSelected: (color) {
                 setState(() {
                   selectedBottomNavBarColor = color;
+                  themeService
+                      .setBottomNavBarColor(color); // Save change immediately
                 });
               },
             ),
@@ -69,6 +74,7 @@ class _ThemeSettingsState extends State<ThemeSettings> {
               onColorSelected: (color) {
                 setState(() {
                   selectedDrawerColor = color;
+                  themeService.setDrawerColor(color); // Save change immediately
                 });
               },
             ),
@@ -77,7 +83,10 @@ class _ThemeSettingsState extends State<ThemeSettings> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: saveThemeSettings,
+              onPressed: () {
+                widget.onThemeUpdated(); // Notify HomeScreen of theme update
+                Navigator.pop(context); // Go back to HomeScreen
+              },
               child: const Text("Save"),
             ),
           ),

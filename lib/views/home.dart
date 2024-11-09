@@ -43,9 +43,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _drawingController = DrawingController();
-    themeService.setListener(() {
-      setState(() {}); // Rebuild the UI when theme changes
-    });
+    themeService.loadPreferences(); // Load theme preferences on app start
   }
 
   Future<void> saveAnswer(
@@ -169,6 +167,14 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: themeService.bottomNavBarColor,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings), label: 'Settings'),
+          ],
         ),
       ),
     );

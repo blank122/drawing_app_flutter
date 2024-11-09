@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          themeMode: themeService.themeMode,
+          // themeMode: themeService.themeMode,
           theme: ThemeData(
             brightness: Brightness.light,
             primaryColor: themeService.appBarColor,

@@ -10,6 +10,10 @@ class BuildDrawer extends StatefulWidget {
 }
 
 class _BuildDrawerState extends State<BuildDrawer> {
+  void _updateTheme() {
+    setState(() {}); // Rebuild UI with updated theme
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -58,7 +62,8 @@ class _BuildDrawerState extends State<BuildDrawer> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ThemeSettings(),
+                              builder: (context) =>
+                                  ThemeSettings(onThemeUpdated: _updateTheme),
                             ),
                           );
                         },
