@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:file_upload/controller/upload_controller.dart';
+import 'package:file_upload/services/theme_service.dart';
 import 'package:file_upload/widgets/build_drawer.dart';
 import 'package:file_upload/widgets/custom_colors.dart';
 import 'package:file_upload/widgets/reusable_snackbar.dart';
@@ -17,6 +18,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final themeService = ThemeService();
+
   late DrawingController _drawingController = DrawingController();
   final Map<String, File> _drawingAnswer = {};
   final Map<String, dynamic> _answers = {};
@@ -40,6 +43,9 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _drawingController = DrawingController();
+    themeService.setListener(() {
+      setState(() {}); // Rebuild the UI when theme changes
+    });
   }
 
   Future<void> saveAnswer(
@@ -91,7 +97,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: themeService.appBarColor,
+          title: const Text('Home Screen'),
+        ),
         drawer: const BuildDrawer(),
         body: SingleChildScrollView(
           child: Padding(

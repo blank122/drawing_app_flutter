@@ -6,11 +6,22 @@ class ThemeService {
   factory ThemeService() => _instance;
   ThemeService._internal();
 
+  // Add a callback to notify listeners
+  VoidCallback? _listener;
+
   ThemeMode themeMode = ThemeMode.system;
   Color appBarColor = Colors.white;
   Color bottomNavBarColor = Colors.white;
   Color drawerColor = Colors.white;
   Color appBodyColor = Colors.white;
+
+  void setListener(VoidCallback listener) {
+    _listener = listener;
+  }
+
+  void notify() {
+    _listener?.call();
+  }
 
   Future<void> loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
