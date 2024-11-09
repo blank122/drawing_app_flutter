@@ -10,6 +10,7 @@ class ThemeService {
   Color appBarColor = Colors.white;
   Color bottomNavBarColor = Colors.white;
   Color drawerColor = Colors.white;
+  Color appBodyColor = Colors.white;
 
   Future<void> loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
@@ -18,6 +19,7 @@ class ThemeService {
     bottomNavBarColor =
         Color(prefs.getInt('bottomNavBarColor') ?? Colors.white.value);
     drawerColor = Color(prefs.getInt('drawerColor') ?? Colors.white.value);
+    appBodyColor = Color(prefs.getInt('appBodyColor') ?? Colors.white.value);
   }
 
   Future<void> savePreferences() async {
